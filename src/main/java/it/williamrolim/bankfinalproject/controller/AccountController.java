@@ -57,13 +57,13 @@ public class AccountController {
         return ResponseEntity.created(location).build();
     }
 
-    @ApiOperation(value= "Pesquisando conta pelo ID", notes = "Endpoint destinado a buscar nova conta", response = Account.class)
-    @GetMapping("/{accountId}")
-    public ResponseEntity<Account> getAccountById(@PathVariable Integer accountId) {
-    	Account acccount = accountService.getAccountById(accountId);
-        return ResponseEntity.ok().body(acccount);
-   
-    }
+//    @ApiOperation(value= "Pesquisando conta pelo ID", notes = "Endpoint destinado a buscar nova conta", response = Account.class)
+//    @GetMapping("/{accountId}")
+//    public ResponseEntity<Account> getAccountById(@PathVariable Integer accountId) {
+//    	Account acccount = accountService.getAccountById(accountId);
+//        return ResponseEntity.ok().body(acccount);
+//   
+//    }
     
     @ApiOperation(value= "Pesquisando conta pelo Register ID", notes = "Endpoint destinado o id pelo registro", response = Account.class)
 	@GetMapping( "{register_id}" )
