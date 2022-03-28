@@ -1,20 +1,14 @@
 version: 0.2
+
 phases:
-  install:
-    runtime-versions:
-      java: corretto11
-  pre_build:
-    commands:
-    - echo In the pre_build phase...
   build:
     commands:
-    - echo Build started on `date`
-    - mvn install
+      - echo Entrando no build phase
+      - mvn clean package
   post_build:
     commands:
-    - echo Build completed on `date`
+      - echo Build Finalizado com sucesso
 artifacts:
   files:
-  - target/bankfinalproject.jar
-  - scripts/*
+    - target/bankfinalproject.jar
   discard-paths: yes
