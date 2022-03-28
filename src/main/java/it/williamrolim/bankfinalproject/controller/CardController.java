@@ -58,19 +58,20 @@ public class CardController {
 	        return ResponseEntity.created(location).build();
 	    }
 	    
-	    
+	    @ApiOperation(value= "Pesquisando card pelo ID", notes = "Endpoint destinado a buscar novo card pelo id", response = Card.class)
 	    @GetMapping("/{cardId}")
 	    public ResponseEntity<Card> getCard(@PathVariable final Integer cardId) {
 	    	Card card = cardService.getCardID(cardId);
 	        return new ResponseEntity<>(card, HttpStatus.OK);
 	    }
-	    
+	    @ApiOperation(value= "Pesquisando todos os cartões associados", notes = "Endpoint destinado a buscar todos os cartões", response = Card.class)
 	    @GetMapping("/getAll")
 	    public ResponseEntity<List<Card>> getAllCards() {
 	        List<Card> card = cardService.getAllCards();
 	        return new ResponseEntity<>(card, HttpStatus.OK);
 	    }
 	    
+	    @ApiOperation(value= "Atualizando o cartão  pelo ID", notes = "Endpoint destinado a atualizar o cartao pelo ID")
 	    @PutMapping("/update/{cardId}")
 	    public ResponseEntity<Card> updateAccount(@RequestBody final CardRequestDTO cardRequestDTO,
 	                                               @PathVariable final Integer cardId) {
@@ -78,7 +79,7 @@ public class CardController {
 			return ResponseEntity.ok().body(card);
 	    }
 	    
-	    
+	    @ApiOperation(value= "Deletando conta pelo ID", notes = "Endpoint destinado a deletar a conta pelo ID")
 	    @DeleteMapping("/delete/{cardId}")
 	    public ResponseEntity<Card> deleteCard(@PathVariable final Integer cardId) {	   
 	    	 Card card = cardService.deleteCard(cardId);

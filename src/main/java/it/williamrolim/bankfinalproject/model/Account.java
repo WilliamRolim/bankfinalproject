@@ -50,9 +50,9 @@ public class Account implements Serializable {
 
 	@Basic
 	@Column(nullable = false,length = 3)
-	@NotEmpty(message = "{campo.digitVerification.obrigatorio}")
-	@NotNull(message = "{campo.digitVerification.obrigatorio}")
-	@NotBlank(message = "{campo.digitVerification.obrigatorio}")
+	@NotEmpty(message = "{campo.digitverification.obrigatorio}")
+	@NotNull(message = "{campo.digitverification.obrigatorio}")
+	@NotBlank(message = "{campo.digitverification.obrigatorio}")
 	private String digitVerification;
 
 	@Basic
@@ -60,14 +60,11 @@ public class Account implements Serializable {
 	@Pattern(regexp = "^\\d{3}.\\d{3}.\\d{3}-\\d{2}$|^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$")
 	@NotNull
 	private String registerId;
-//	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-
 	 @OneToMany(mappedBy = "account" ,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	 @JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	 private List<Card> card;
 
-	// fetch = FetchType.LAZYnão tinha
-	public Account() {
+	 public Account() {
 
 	}
 

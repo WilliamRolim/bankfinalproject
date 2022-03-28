@@ -34,10 +34,10 @@ public class CardServiceImp implements CardService {
 	public Card insertCard(CardRequestDTO cardRequestDto, Integer accountId, Integer typecardId) {
 		Card card = new Card();
 		Optional<Account> account = accountRepository.findById(accountId);
-		account.orElseThrow();
+		account.orElseThrow(() -> new IllegalArgumentException("account with id: " + accountId + " could not be found"));
 
 		Optional<TypeCard> typecard = typeCardRepository.findById(typecardId);
-		account.orElseThrow();
+		account.orElseThrow(() -> new IllegalArgumentException("Type Card with id: " + typecardId + " could not be found"));
 
 		card.setName(cardRequestDto.getName());
 		card.setDigit_code(cardRequestDto.getDigit_code());

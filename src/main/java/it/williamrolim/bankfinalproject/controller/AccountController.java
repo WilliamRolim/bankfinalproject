@@ -78,6 +78,7 @@ public class AccountController {
     	Page<Account> acccount = accountService.getAllAccounts(pageable);
         return new ResponseEntity<>(acccount, HttpStatus.OK);
     }
+    
     @ApiOperation(value= "Atualizando a conta pelo ID", notes = "Endpoint destinado o id pelo registro", response = Account.class)
     @PostMapping("/update/{accountId}")
     public ResponseEntity<Account> updateAccount(@RequestBody final AccountRequestDTO accountRequestDTO,
@@ -86,20 +87,8 @@ public class AccountController {
 		return ResponseEntity.ok().body(account);
     }
 
-//    @PostMapping("/addCity/{cityId}/toZipcode/{zipcodeId}")
-//    public ResponseEntity<Zipcode> addCity(@PathVariable final Long cityId,
-//                                           @PathVariable final Long zipcodeId) {
-//        Zipcode zipcode = zipcodeService.addCityToZipcode(zipcodeId, cityId);
-//        return new ResponseEntity<>(zipcode, HttpStatus.OK);
-//    }
-//
-//    @PostMapping("/deleteCity/{zipcodeId}")
-//    public ResponseEntity<Zipcode> deleteCity(@PathVariable final Long zipcodeId) {
-//        Zipcode zipcode = zipcodeService.removeCityFromZipcode(zipcodeId);
-//        return new ResponseEntity<>(zipcode, HttpStatus.OK);
-//    }
     
-    @ApiOperation(value= "Deletando a conta pelo ID", notes = "Endpoint destinado deletar a conta pelo id, caso não haver cliente", response = Account.class)
+    @ApiOperation(value= "Deletando a conta pelo ID", notes = "Endpoint destinado deletar a conta pelo id, caso não haver cliente")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity <Account> deleteAccount(@PathVariable final Integer id) {
     	accountService.deleteByAccountIDFK(id);

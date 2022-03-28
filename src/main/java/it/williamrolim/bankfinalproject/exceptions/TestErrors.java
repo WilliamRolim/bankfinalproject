@@ -34,6 +34,19 @@ public class TestErrors {
 //		return ResponseEntity.status(status).body(err);
 //	}
 //	
+	@ExceptionHandler(AccountException.class)
+	public ResponseEntity<ErroPadrao> accountError(AccountException e, HttpServletRequest request){
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		ErroPadrao err = new ErroPadrao();
+		err.setTimeStamp(Instant.now());
+		err.setStatus(status.value());
+		err.setError("Account Exception");
+		err.setMessage(e.getMessage());
+		err.setPath(request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(err);
+	}
+	
 //	@ExceptionHandler(AccountException.class)
 //	public ResponseEntity<ErroPadrao> accountError(AccountException e, HttpServletRequest request){
 //		HttpStatus status = HttpStatus.NOT_FOUND;
