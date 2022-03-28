@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import it.williamrolim.bankfinalproject.exceptions.ErroPadrao;
+import it.williamrolim.bankfinalproject.exceptions.ErrorConstraint;
 import it.williamrolim.bankfinalproject.model.Account;
 import it.williamrolim.bankfinalproject.model.Card;
 import it.williamrolim.bankfinalproject.model.requestDTO.AccountRequestDTO;
@@ -33,7 +38,14 @@ public class CardController {
 		@Autowired
 		AccountService accountService;
 		
-		
+		@ApiOperation(value= "Persistindo novo cartão", notes = "Endpoint destinado a  persistir no cartão")
+		   @ApiResponses(value = {
+				   @ApiResponse(code = 201, message = "Sucess"),
+				   @ApiResponse(code = 400, message = "Bad Request", response = ErrorConstraint.class),
+				   @ApiResponse(code = 404, message = "Not Found" , response = ErroPadrao.class),
+				   @ApiResponse(code = 404, message = "Failure",response = ErroPadrao.class)
+				   
+		   })
 	    @PostMapping("/{accountId}/insert/{typecardId}")
 	    public ResponseEntity<Card> insertAccount(@RequestBody final CardRequestDTO cardRequestDTO,
 	    		@PathVariable Integer accountId, @PathVariable Integer typecardId) {

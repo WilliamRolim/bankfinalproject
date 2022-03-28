@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -27,20 +28,31 @@ public class Account implements Serializable {
 	private Integer account_id;
 
 	@Basic
-	@NotEmpty
+	@NotEmpty(message = "{campo.nameowner.obrigatorio}")
+	@NotNull(message = "{campo.nameowner.obrigatorio}")
+	@NotBlank(message = "{campo.nameowner.obrigatorio}")
 	@Column(nullable = false, length  = 50)
 	private String nameOwner;
 
 	@Basic
 	@Column(nullable = false, length = 4)
+	@NotEmpty(message = "{campo.nameowner.obrigatorio}")
+	@NotNull(message = "{campo.nameowner.obrigatorio}")
+	@NotBlank(message = "{campo.nameowner.obrigatorio}")
 	private String agencyCode;
 
 	@Basic
 	@Column(nullable = false,length = 8)
+	@NotEmpty(message = "{campo.accountcode.obrigatorio}")
+	@NotNull(message = "{campo.accountcode.obrigatorio}")
+	@NotBlank(message = "{campo.accountcode.obrigatorio}")
 	private String accountCode;
 
 	@Basic
 	@Column(nullable = false,length = 3)
+	@NotEmpty(message = "{campo.digitVerification.obrigatorio}")
+	@NotNull(message = "{campo.digitVerification.obrigatorio}")
+	@NotBlank(message = "{campo.digitVerification.obrigatorio}")
 	private String digitVerification;
 
 	@Basic

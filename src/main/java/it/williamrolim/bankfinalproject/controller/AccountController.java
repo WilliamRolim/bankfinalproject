@@ -65,19 +65,20 @@ public class AccountController {
    
     }
     
-
+    @ApiOperation(value= "Pesquisando conta pelo Register ID", notes = "Endpoint destinado o id pelo registro", response = Account.class)
 	@GetMapping( "{register_id}" )
 	public ResponseEntity<Account> searchAccountForRegisterId(@PathVariable String register_id) {
 		Account doc = this.accountService.getAccountByRegisterId(register_id);
 		return ResponseEntity.ok().body(doc);
 	}
-
+   
+    @ApiOperation(value= "Buscando todas as contas", notes = "Endpoint destinado a buscar todas as contas com paginação", response = Account.class)
     @GetMapping("/getAll")
     public ResponseEntity<Page<Account>> getAllAccounts(Pageable pageable) {
     	Page<Account> acccount = accountService.getAllAccounts(pageable);
         return new ResponseEntity<>(acccount, HttpStatus.OK);
     }
-
+    @ApiOperation(value= "Atualizando a conta pelo ID", notes = "Endpoint destinado o id pelo registro", response = Account.class)
     @PostMapping("/update/{accountId}")
     public ResponseEntity<Account> updateAccount(@RequestBody final AccountRequestDTO accountRequestDTO,
                                                @PathVariable final Integer accountId) {
@@ -98,6 +99,7 @@ public class AccountController {
 //        return new ResponseEntity<>(zipcode, HttpStatus.OK);
 //    }
     
+    @ApiOperation(value= "Deletando a conta pelo ID", notes = "Endpoint destinado deletar a conta pelo id, caso não haver cliente", response = Account.class)
     @DeleteMapping("/delete/{id}")
     public ResponseEntity <Account> deleteAccount(@PathVariable final Integer id) {
     	accountService.deleteByAccountIDFK(id);
