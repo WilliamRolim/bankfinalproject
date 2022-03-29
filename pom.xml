@@ -74,16 +74,11 @@
 
 	<build>
 		<finalName>bankfinalproject</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<profiles>
-						<profile>test</profile>
-						<profile>dev</profile>
-					</profiles>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
