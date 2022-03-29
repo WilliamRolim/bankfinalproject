@@ -43,21 +43,7 @@ public class Card implements Serializable {
 	@Basic
 	@Column(columnDefinition="Decimal(10,2) default '100.00'")
 	private Double limit_balance;
-//
-////    @ManyToOne(fetch = FetchType.LAZY)
-////    @JoinColumn(name = "account_id")
-////    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-////	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//	//@ManyToOne
-//	@ManyToOne (fetch = FetchType.EAGER)
-//	@JoinColumn(name = "account_id")
-//	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//	private Account account;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "type_card_id")
-
-	
     @ManyToOne(cascade = CascadeType.REFRESH, fetch  = FetchType.EAGER)
     @JoinColumn(name = "account_id")   //mudança de ultima hora account_id
     @JsonIgnore
@@ -67,8 +53,6 @@ public class Card implements Serializable {
 	@JoinColumn(name = "type_card_id") //mudança de ultima hora type_card_id
 	private TypeCard typeCard;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "type_card_id")
 	
 	public Card() {
 	}

@@ -38,6 +38,7 @@ public class AccountController {
 	
 	@Autowired
 	AccountService accountService;
+	
     @ApiOperation(value= "Persistindo nova conta", notes = "Endpoint destinado a criar nova conta")
    @ApiResponses(value = {
 		   @ApiResponse(code = 201, message = "Sucess"),

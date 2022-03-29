@@ -40,18 +40,6 @@ public class AccountServiceImp implements AccountService{
 		account.setDigitVerification(accountRequestDTO.getDigitVerification());
 		account.setRegisterId(accountRequestDTO.getRegisterId());
 		
-//		List<Card> cards = account.getCard();
-//		
-//		for (Card card: cards) {
-//			cardRepository.save(card);
-//		}
-		
-//		try {
-//			if (account != null) 
-//				accontRepository.save(account);
-//		} catch (Exception e) {
-//			throw new IllegalArgumentException("Error: Verifique os campos");
-//		}
 		return accountRepository.save(account);
 	}
 
@@ -71,18 +59,6 @@ public class AccountServiceImp implements AccountService{
 
 	        return account.get();
 	   
-
-	    
-//		try {
-//			if (accontRepository.findById(accountId) == null)
-//				 accontRepository.deleteById(accountId);
-//		} catch (Exception e) {
-//			throw new ErrorHandling("Cannot delete account with linked cards");
-//		}
-//		Account account = accontRepository.findById(accountId).orElseThrow(() ->
-//        new IllegalArgumentException(
-//                "account with id: " + accountId + " could not be found"));
-		
 }
 	
 
@@ -98,21 +74,7 @@ public class AccountServiceImp implements AccountService{
 	@Transactional
 	@Override
 	public void deleteByAccountIDFK(Integer id) {
-//	try {
-//		Optional<Account> accountVerificationId = accountRepository.findById2(id);
-//		accountVerificationId.orElseThrow(() -> new RuntimeException("Account Have Card"));
-//		if(accountVerificationId == Account) {
-//			
-//		}
-//	} catch (Exception e) {
-//		// TODO: handle exception
-//	}
-//
-//		Optional<Account> accountVerificationId = accountRepository.findById2(id);
-//		accountVerificationId.orElseThrow(() -> new RuntimeException("Account Have Card"));
-//		Optional<Card> cardVerificationIdAccount = accountRepository.findById2(id);
-//		cardVerificationIdAccount.orElseThrow(() -> new RuntimeException("Account Have Card"));
-//		
+	
 		if (accountRepository.findById2(id) != accountRepository.findById2(id)) {
 			throw new RuntimeException("Account Have Card");
 		}else {
@@ -121,7 +83,7 @@ public class AccountServiceImp implements AccountService{
 		}
 
 	}
-	
+	@Transactional
 	@Override
 	public Account updateAccount(Integer accountId, AccountRequestDTO accountRequestDTO) {
 

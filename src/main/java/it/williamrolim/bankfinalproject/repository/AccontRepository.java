@@ -52,13 +52,5 @@ public interface AccontRepository extends JpaRepository<Account, Integer> {
 //	Account findRegisterIdById(@Param("id") Integer id);
 	
 	
-//	@Query(value = "select registerId  from account a  where a.account_id = 1", nativeQuery = true)
-//	prublic void findRegisterIdById;
-
-
-	// "delete * from account a where a.id = :id", nativeQuery = true)
-
-//	  @Query(value = "delete from addresses u where u.ADDRESS_ID LIKE %:addressId%", nativeQuery = true)
-//	  void deleteAddressByAddressId(@Param("addressId") String addressId);
 
 }

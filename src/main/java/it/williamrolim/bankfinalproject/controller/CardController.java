@@ -47,7 +47,7 @@ public class CardController {
 				   
 		   })
 	    @PostMapping("/{accountId}/insert/{typecardId}")
-	    public ResponseEntity<Card> insertAccount(@RequestBody final CardRequestDTO cardRequestDTO,
+	    public ResponseEntity<Card> insertCard(@RequestBody final CardRequestDTO cardRequestDTO,
 	    		@PathVariable Integer accountId, @PathVariable Integer typecardId) {
 	    	Card card = cardService.insertCard(cardRequestDTO, accountId, typecardId);
 	        URI location = ServletUriComponentsBuilder

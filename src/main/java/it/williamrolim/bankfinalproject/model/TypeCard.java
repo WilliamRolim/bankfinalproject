@@ -25,9 +25,7 @@ public class TypeCard implements Serializable {
 	private Integer type_card_id;
 
 	@Column(name = "name")
-	private String name;	//	@JsonProperty(namespace = "typeCard")
-//	@OneToOne(mappedBy = "typeCard",cascade = { CascadeType.ALL })
-//	@JoinColumn(name = "type_card_id")
+	private String name;
 	
 	@OneToMany(mappedBy = "typeCard", fetch = FetchType.LAZY)
 	@JsonIgnore
