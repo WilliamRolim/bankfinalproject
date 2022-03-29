@@ -1,7 +1,6 @@
 package it.williamrolim.bankfinalproject.service.imp;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -13,28 +12,42 @@ import it.williamrolim.bankfinalproject.model.TypeCard;
 import it.williamrolim.bankfinalproject.model.requestDTO.TypeCardRequestDTO;
 import it.williamrolim.bankfinalproject.repository.TypeCardRepository;
 import it.williamrolim.bankfinalproject.service.TypeCardService;
+
 @Service
 public class TypeCardServiceImp implements TypeCardService {
 
 	@Autowired
 	TypeCardRepository typeCardRepository;
-	
+
 	@Transactional
 	@Override
 	public TypeCard insertTypeCard(TypeCardRequestDTO typeCardRequestDTO) {
 		TypeCard typeCard = new TypeCard();
+		typeCard.setName(typeCardRequestDTO.getName());
+		
+		return typeCardRepository.save(typeCard);
 
-		Optional<TypeCard> tcname = typeCardRepository.findIDByName(typeCardRequestDTO.getName());
-		
-		if (tcname.get().getName() != typeCardRequestDTO.getName()) {
-			typeCard.setName(typeCardRequestDTO.getName());
-		}else {
-			throw new RuntimeException("Type Card Já existe");
-		}
 
-		
-		
-		
+		// compareTwoTypeCard(typeCardRequestDTO);
+
+//		
+//		getTypeCardName(name);
+//		
+//			if (name != typeCardRequestDTO.getName()) {
+//			typeCard.setName(typeCardRequestDTO.getName());
+//		}else {
+//			throw new RuntimeException("Type Card Já existe");
+//		}
+
+		// fazer no metodo Optional<TypeCard> tcname =
+		// typeCardRepository.findIDByName(typeCardRequestDTO.getName());
+
+//		if (tcname.get().getName() != typeCardRequestDTO.getName()) {
+//			typeCard.setName(typeCardRequestDTO.getName());
+//		}else {
+//			throw new RuntimeException("Type Card Já existe");
+//		}
+
 //		//typeCard.setId(typeCardRequestDTO.getId());
 //		Optional<TypeCard> tc = typeCardRepository.findIDByName(typeCardRequestDTO.getName());
 //		typeCard.setType_card_id(tc.get().getType_card_id());
@@ -45,21 +58,28 @@ public class TypeCardServiceImp implements TypeCardService {
 //		System.out.println("VEJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + id);
 //		typeCard.setName(tc.get().getName());
 
-		return typeCardRepository.save(typeCard);
 	}
+
+//	@SuppressWarnings("unlikely-arg-type")
+//	@Override
+//	public Boolean getTypeCardName(String name) {
+//		Optional<TypeCard> tc = typeCardRepository.findByName(name);
+//		Objects.equals("test", new String("test"))
+//		if (tc.get().getName().equalsIgnoreCase(name)) {
+//			
+//		}
+//		return true;
+//	}
 
 	@Override
 	public List<TypeCard> getAllTypeCards() {
-		return StreamSupport
-		        .stream(typeCardRepository.findAll().spliterator(), false)
-		        .collect(Collectors.toList());
+		return StreamSupport.stream(typeCardRepository.findAll().spliterator(), false).collect(Collectors.toList());
 	}
 
 	@Override
 	public TypeCard getTypeCardId(Integer accountId) {
-	       return typeCardRepository.findById(accountId).orElseThrow(() ->
-	        new IllegalArgumentException(
-	                "account with id: " + accountId + " could not be found"));
+		return typeCardRepository.findById(accountId).orElseThrow(
+				() -> new IllegalArgumentException("account with id: " + accountId + " could not be found"));
 	}
 
 	@Override
@@ -70,13 +90,34 @@ public class TypeCardServiceImp implements TypeCardService {
 	@Transactional
 	@Override
 	public TypeCard updateTypeCard(Integer typecardID, TypeCardRequestDTO typeCardRequestDTO) {
-		TypeCard typecardUpdate =  getTypeCardId(typecardID);
+		TypeCard typecardUpdate = getTypeCardId(typecardID);
 		typecardUpdate.setName(typeCardRequestDTO.getName());
-		  if (typeCardRequestDTO.getId() != null) {
-	            return typeCardRepository.save(typecardUpdate);
-		  }
-	            return typecardUpdate;
+		if (typeCardRequestDTO.getId() != null) {
+			return typeCardRepository.save(typecardUpdate);
+		}
+		return typecardUpdate;
 	}
 
+	@Override
+	public TypeCard searchName(TypeCardRequestDTO typeCardRequestDTO) {
+		TypeCard typeCard = new TypeCard();
+		typeCard.setName(typeCardRequestDTO.getName());
+		String name = typeCard.getName();
+
+		String result = typeCardRepository.findByName(name);
+
+		if (result == null || (result.equals(name))) {
+			insertTypeCard(typeCardRequestDTO);
+
+			try {
+				if (result == name) {
+					throw new RuntimeException("Type Card Já existe");
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		return null;
+	}
 
 }

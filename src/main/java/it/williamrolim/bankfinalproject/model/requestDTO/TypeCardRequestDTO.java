@@ -1,9 +1,5 @@
 package it.williamrolim.bankfinalproject.model.requestDTO;
 
-import java.util.Optional;
-
-import it.williamrolim.bankfinalproject.model.TypeCard;
-
 public class TypeCardRequestDTO {
 	private Integer id;
 	private String name;
@@ -11,9 +7,18 @@ public class TypeCardRequestDTO {
 	public TypeCardRequestDTO() {
 	}
 	
+	
+	
 
 	public TypeCardRequestDTO(Integer id, String name) {
 		this.id = id;
+		this.name = name;
+	}
+
+
+
+
+	public TypeCardRequestDTO(String name) {
 		this.name = name;
 	}
 

@@ -3,6 +3,7 @@ package it.williamrolim.bankfinalproject.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class TypeCard implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer type_card_id;
 
-	@NotNull
+	@Column(name = "name")
 	private String name;	//	@JsonProperty(namespace = "typeCard")
 //	@OneToOne(mappedBy = "typeCard",cascade = { CascadeType.ALL })
 //	@JoinColumn(name = "type_card_id")
@@ -36,8 +37,19 @@ public class TypeCard implements Serializable {
 	}
 	
 	
-	public TypeCard(Integer type_card_id, String name, List<Card> card) {
+	
+	public TypeCard(Integer type_card_id, String name) {
 		this.type_card_id = type_card_id;
+		this.name = name;
+	}
+
+
+
+	public TypeCard(String name) {
+		this.name = name;
+	}
+	
+	public TypeCard(String name, List<Card> card) {
 		this.name = name;
 		this.card = card;
 	}

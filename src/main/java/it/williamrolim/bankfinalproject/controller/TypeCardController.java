@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fasterxml.jackson.databind.introspect.TypeResolutionContext;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -24,6 +26,7 @@ import it.williamrolim.bankfinalproject.exceptions.ErrorConstraint;
 import it.williamrolim.bankfinalproject.model.Account;
 import it.williamrolim.bankfinalproject.model.TypeCard;
 import it.williamrolim.bankfinalproject.model.requestDTO.TypeCardRequestDTO;
+import it.williamrolim.bankfinalproject.responseDTO.TypeCardResponseDTO;
 import it.williamrolim.bankfinalproject.service.TypeCardService;
 
 @RestController
@@ -34,7 +37,8 @@ public class TypeCardController {
 	@Autowired
 	TypeCardService typecardService;
 
-	   @ApiOperation(value= "Persistindo novo type card", notes = "Endpoint destinado a persistir novo type card")
+	   @SuppressWarnings("unlikely-arg-type")
+	@ApiOperation(value= "Persistindo novo type card", notes = "Endpoint destinado a persistir novo type card")
 	   @ApiResponses(value = {
 			   @ApiResponse(code = 201, message = "Sucess"),
 			   @ApiResponse(code = 400, message = "Bad Request", response = ErrorConstraint.class),
@@ -44,10 +48,23 @@ public class TypeCardController {
 	   })
     @PostMapping
     public ResponseEntity<TypeCard> insertAccount(@RequestBody final TypeCardRequestDTO typecardRequestDTO) {
-    	TypeCard typeCard = typecardService.insertTypeCard(typecardRequestDTO);
+		  String  nome = typecardRequestDTO.getName();
+		   TypeCardResponseDTO tcDTO  = new TypeCardResponseDTO();
+		   tcDTO.setName(typecardRequestDTO.getName());
+		   
+		   TypeCardRequestDTO tResponse = new TypeCardRequestDTO();
+		   tResponse.setName(typecardRequestDTO.getName());
+		   TypeCard searchName = typecardService.searchName(tResponse);
+		   
+		   if (nome.equals(searchName)) {
+				throw new IllegalArgumentException("Error: Type Cards Equals");
+
+		   }
+			TypeCard typeCard = typecardService.insertTypeCard(typecardRequestDTO);
+
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
+                .path("/{type_card_id}")
                 .buildAndExpand(typeCard.getType_card_id())
                 .toUri();
         return ResponseEntity.created(location).build();    }
