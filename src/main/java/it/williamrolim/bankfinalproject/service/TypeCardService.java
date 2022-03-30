@@ -14,7 +14,7 @@ public interface TypeCardService {
     public TypeCard getTypeCardId(Integer typecardId);
     public void deleteTypeCard(Integer typecardId);
     public TypeCard updateTypeCard(Integer typecardId, TypeCardRequestDTO typeCardRequestDTO);
-    public TypeCard searchName(TypeCardRequestDTO typeCardRequestDTO);
+    //public TypeCard searchName(TypeCardRequestDTO typeCardRequestDTO);
     //    public TypeCard addCardToAccount(Long accountId, Long cardId);
 //    public TypeCard removeCardFromAccount(Long zipcodeId);
 	//public TypeCard compareTwoTypeCard(TypeCardRequestDTO typecardRequestDTO);

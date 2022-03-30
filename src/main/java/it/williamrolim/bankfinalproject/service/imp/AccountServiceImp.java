@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.williamrolim.bankfinalproject.exceptions.CardExceptions;
+import it.williamrolim.bankfinalproject.exceptions.Errors;
 import it.williamrolim.bankfinalproject.model.Account;
 import it.williamrolim.bankfinalproject.model.requestDTO.AccountRequestDTO;
 import it.williamrolim.bankfinalproject.repository.AccontRepository;
@@ -24,9 +26,7 @@ public class AccountServiceImp implements AccountService{
 
 	@Autowired
 	CardService cardService;
-	
-	
-	
+
 	@Autowired
 	CardRepository cardRepository;
 	
@@ -86,10 +86,12 @@ public class AccountServiceImp implements AccountService{
 	@Transactional
 	@Override
 	public Account updateAccount(Integer accountId, AccountRequestDTO accountRequestDTO) {
-
 		Optional<Account> accountFind = accountRepository.findById(accountId);
 		accountFind.orElseThrow(() -> new RuntimeException("Account dont find"));
 		
+		
+		if (accountFind == null) throw new CardExceptions(Errors.NO_RECORD_FOUND.getErrorMessage());
+
 		Account accountUpdate = getAccountById(accountId);
 		
 		accountUpdate.setNameOwner(accountRequestDTO.getNameOwner());
@@ -97,12 +99,7 @@ public class AccountServiceImp implements AccountService{
 		accountUpdate.setAccountCode(accountRequestDTO.getAccountCode());
 		accountUpdate.setDigitVerification(accountRequestDTO.getDigitVerification());
 		accountUpdate.getRegisterId();
-//		
-//		  if (registerID == null) {
-//				throw new IllegalArgumentException("Error: No RegisterId or No Id Account");
-//	        }
-		//account.getDigitVerification(accountRepository.findByRegisterIdById(accountId));
-		
+
         if (accountId == null) {
 			throw new IllegalArgumentException("Error: No RegisterId or No Id Account");
         }

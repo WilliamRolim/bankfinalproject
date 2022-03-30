@@ -17,13 +17,7 @@ import it.williamrolim.bankfinalproject.model.Card;
 
 @Repository
 public interface AccontRepository extends JpaRepository<Account, Integer> {
-	
-//	@Query(value ="SELECT * FROM Account a "+
-//	"INNER JOIN Card c " 
-//			+" ON  a.id = c.account_id WHERE a.id = :id", nativeQuery = true)
-	/*@Query(value ="SELECT * FROM Account a "+
-	"INNER JOIN Card c " 
-			+" ON  a.id = c.account_id WHERE a.id = :id", nativeQuery = true)*/
+
 	@Query(value ="SELECT * FROM Account a "
 				+ "INNER JOIN Card c " 
 				+ "ON  a.account_id = c.account_id "

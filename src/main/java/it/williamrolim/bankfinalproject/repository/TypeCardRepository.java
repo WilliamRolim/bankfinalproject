@@ -14,7 +14,6 @@ import it.williamrolim.bankfinalproject.model.requestDTO.TypeCardRequestDTO;
 
 public interface TypeCardRepository extends JpaRepository<TypeCard, Integer> {
 
-	TypeCard save(TypeCardRequestDTO typeCardRequestDTO);
 	
 //	@Query(value = "select registerId  from account a  where a.account_id = 1", nativeQuery = true)
 
@@ -33,5 +32,8 @@ public interface TypeCardRepository extends JpaRepository<TypeCard, Integer> {
 	String compareTypeCardNames(@Param("nome") String nome);
 
 	String findByName(String name);
+
+	TypeCard save(TypeCardRequestDTO typeCardRequestDTO);
+
 	
 }

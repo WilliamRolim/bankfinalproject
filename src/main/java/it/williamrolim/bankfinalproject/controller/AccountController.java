@@ -1,8 +1,6 @@
 package it.williamrolim.bankfinalproject.controller;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,17 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.google.common.net.MediaType;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import it.williamrolim.bankfinalproject.exceptions.ErroPadrao;
 import it.williamrolim.bankfinalproject.exceptions.ErrorConstraint;
-import it.williamrolim.bankfinalproject.exceptions.ErrorHandling;
 import it.williamrolim.bankfinalproject.model.Account;
-import it.williamrolim.bankfinalproject.model.Card;
 import it.williamrolim.bankfinalproject.model.requestDTO.AccountRequestDTO;
 import it.williamrolim.bankfinalproject.service.AccountService;
 @Api(value = "AccountController", description = "Persistir os dados, alterar, selecionar e excluir contas conforme regra de negocio proposta")
@@ -85,6 +79,7 @@ public class AccountController {
     public ResponseEntity<Account> updateAccount(@RequestBody final AccountRequestDTO accountRequestDTO,
                                                @PathVariable final Integer accountId) {
     	Account account = accountService.updateAccount(accountId, accountRequestDTO);
+    	
 		return ResponseEntity.ok().body(account);
     }
 
