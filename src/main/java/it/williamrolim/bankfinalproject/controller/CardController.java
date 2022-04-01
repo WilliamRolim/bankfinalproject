@@ -21,9 +21,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import it.williamrolim.bankfinalproject.exceptions.ErroPadrao;
 import it.williamrolim.bankfinalproject.exceptions.ErrorConstraint;
-import it.williamrolim.bankfinalproject.model.Account;
 import it.williamrolim.bankfinalproject.model.Card;
-import it.williamrolim.bankfinalproject.model.requestDTO.AccountRequestDTO;
 import it.williamrolim.bankfinalproject.model.requestDTO.CardRequestDTO;
 import it.williamrolim.bankfinalproject.service.AccountService;
 import it.williamrolim.bankfinalproject.service.CardService;
@@ -81,9 +79,9 @@ public class CardController {
 	    
 	    @ApiOperation(value= "Deletando conta pelo ID", notes = "Endpoint destinado a deletar a conta pelo ID")
 	    @DeleteMapping("/delete/{cardId}")
-	    public ResponseEntity<Card> deleteCard(@PathVariable final Integer cardId) {	   
-	    	 Card card = cardService.deleteCard(cardId);
-	        return new ResponseEntity<>(card, HttpStatus.OK);
+	    public ResponseEntity<Void> deleteCard(@PathVariable Integer cardId) {	   
+	    	 cardService.deleteCard(cardId);     
+	    	 return ResponseEntity.ok().build();
 	    }
 
 

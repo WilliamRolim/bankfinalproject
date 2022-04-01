@@ -15,9 +15,10 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-@Entity(name="card")
+
+@Entity(name = "card")
 public class Card implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -29,31 +30,30 @@ public class Card implements Serializable {
 	private String name;
 
 	@Basic
-	@Column(nullable = false,length = 45)
+	@Column(nullable = false, length = 45)
 	private String flag;
 
 	@Basic
-	@Column(nullable = false,length = 45)
+	@Column(nullable = false, length = 45)
 	private String numeros;
 
 	@Basic
-	@Column(nullable = false,length = 5)
+	@Column(nullable = false, length = 5)
 	private String digit_code;
 
 	@Basic
-	@Column(columnDefinition="Decimal(10,2) default '100.00'")
+	@Column(columnDefinition = "Decimal(10,2) default '100.00'")
 	private Double limit_balance;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch  = FetchType.EAGER)
-    @JoinColumn(name = "account_id")   //mudança de ultima hora account_id
-    @JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "account_id") // mudança de ultima hora account_id
+	@JsonIgnore
 	private Account account;
-    
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "type_card_id") //mudança de ultima hora type_card_id
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "type_card_id") // mudança de ultima hora type_card_id
 	private TypeCard typeCard;
 
-	
 	public Card() {
 	}
 
@@ -67,6 +67,15 @@ public class Card implements Serializable {
 		this.limit_balance = limit_balance;
 		this.account = account;
 		this.typeCard = typeCard;
+	}
+
+	public Card(Integer id, String name, String flag, String numeros, String digit_code, Double limit_balance) {
+		this.id = id;
+		this.name = name;
+		this.flag = flag;
+		this.numeros = numeros;
+		this.digit_code = digit_code;
+		this.limit_balance = limit_balance;
 	}
 
 	public Integer getId() {
@@ -132,7 +141,5 @@ public class Card implements Serializable {
 	public void setTypeCard(TypeCard typeCard) {
 		this.typeCard = typeCard;
 	}
-
-
 
 }

@@ -60,7 +60,8 @@ public class Account implements Serializable {
 	@Pattern(regexp = "^\\d{3}.\\d{3}.\\d{3}-\\d{2}$|^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$")
 	@NotNull
 	private String registerId;
-	 @OneToMany(mappedBy = "account" ,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	//**ESTUDAR CONCEITOS EAGER, LAZY NOVAMENTE , = EAGER ESTAVA IMPEDINDO DE DELETAR O CARD
+	 @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
 	 @JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	 private List<Card> card;
 

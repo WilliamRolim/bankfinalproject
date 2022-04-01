@@ -15,7 +15,7 @@ public interface CardService  {
 	//public CardResponseDTO getCardId(Integer cardId);
 	public Card getCardID(Integer cardId);
 	public List<Card> getAllCards();
-	public Card deleteCard(Integer cardId);
+	public void deleteCard(Integer cardId);
 	public Card updateCard(Integer cardId, CardRequestDTO cardRequestDTO);
 	public CardResponseDTO addCardToAccount(Integer cardId, Long authorId);
 	public CardResponseDTO addCardToTypeCard(Integer cardId, Long typeCardId);

@@ -34,6 +34,5 @@ public interface TypeCardRepository extends JpaRepository<TypeCard, Integer> {
 	String findByName(String name);
 
 	TypeCard save(TypeCardRequestDTO typeCardRequestDTO);
-
 	
 }

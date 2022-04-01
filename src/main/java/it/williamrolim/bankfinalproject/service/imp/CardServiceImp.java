@@ -7,6 +7,7 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.williamrolim.bankfinalproject.model.Account;
 import it.williamrolim.bankfinalproject.model.Card;
@@ -34,10 +35,12 @@ public class CardServiceImp implements CardService {
 	public Card insertCard(CardRequestDTO cardRequestDto, Integer accountId, Integer typecardId) {
 		Card card = new Card();
 		Optional<Account> account = accountRepository.findById(accountId);
-		account.orElseThrow(() -> new IllegalArgumentException("account with id: " + accountId + " could not be found"));
+		account.orElseThrow(
+				() -> new IllegalArgumentException("account with id: " + accountId + " could not be found"));
 
 		Optional<TypeCard> typecard = typeCardRepository.findById(typecardId);
-		account.orElseThrow(() -> new IllegalArgumentException("Type Card with id: " + typecardId + " could not be found"));
+		account.orElseThrow(
+				() -> new IllegalArgumentException("Type Card with id: " + typecardId + " could not be found"));
 
 		card.setName(cardRequestDto.getName());
 		card.setDigit_code(cardRequestDto.getDigit_code());
@@ -64,31 +67,32 @@ public class CardServiceImp implements CardService {
 	}
 
 	@Override
-	public Card deleteCard(Integer cardId) {
-
-		Card account = getCardID(cardId);
-		cardRepository.deleteById(cardId);
-		return  account;
-	}
-
-	@Override
 	public Card updateCard(Integer cardId, CardRequestDTO cardRequestDTO) {
 		Optional<Card> cardID = cardRepository.findById(cardId);
 		cardID.orElseThrow(() -> new IllegalArgumentException("card with id: " + cardId + " could not be found"));
-			Card  cardUpdate =  getCardID(cardId);
-			cardUpdate.setName(cardRequestDTO.getName());
-			cardUpdate.setNumeros(cardRequestDTO.getNumeros());
-			cardUpdate.setLimit_balance(cardRequestDTO.getLimit_balance());
-			cardUpdate.setFlag(cardRequestDTO.getFlag());
-			cardUpdate.setDigit_code(cardRequestDTO.getDigit_code());
-			if ( cardId != null) {
-				return cardRepository.save(cardUpdate);
-			}
+		Card cardUpdate = getCardID(cardId);
+		cardUpdate.setName(cardRequestDTO.getName());
+		cardUpdate.setNumeros(cardRequestDTO.getNumeros());
+		cardUpdate.setLimit_balance(cardRequestDTO.getLimit_balance());
+		cardUpdate.setFlag(cardRequestDTO.getFlag());
+		cardUpdate.setDigit_code(cardRequestDTO.getDigit_code());
+		if (cardId != null) {
+			return cardRepository.save(cardUpdate);
+		}
 //		  if (typeCardRequestDTO.getId() != null) {
 //	            return typeCardRepository.save(typecardUpdate);
 //		  }
 //	            return typecardUpdate;
 		return cardUpdate;
+	}
+
+
+	@Override
+	public void deleteCard(Integer cardId) {
+        Optional<Card> card = cardRepository.findById(cardId);     
+        card.orElseThrow(() -> new RuntimeException("Card dont find"));
+        
+		cardRepository.deleteById(card.get().getId());
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package it.williamrolim.bankfinalproject.service.imp;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import it.williamrolim.bankfinalproject.model.TypeCard;
 import it.williamrolim.bankfinalproject.model.requestDTO.TypeCardRequestDTO;
 import it.williamrolim.bankfinalproject.repository.TypeCardRepository;
-import it.williamrolim.bankfinalproject.responseDTO.TypeCardResponseDTO;
 import it.williamrolim.bankfinalproject.service.TypeCardService;
 
 @Service
@@ -45,11 +45,16 @@ public class TypeCardServiceImp implements TypeCardService {
 	@Override
 	public TypeCard getTypeCardId(Integer accountId) {
 		return typeCardRepository.findById(accountId).orElseThrow(
-				() -> new IllegalArgumentException("account with id: " + accountId + " could not be found"));
+				() -> new IllegalArgumentException("Type Card with id: " + accountId + " could not be found"));
 	}
 
 	@Override
 	public void deleteTypeCard(Integer typeCardId) {
+
+        Optional<TypeCard> typeCard = typeCardRepository.findById(typeCardId);
+        
+        typeCard.orElseThrow(() -> new RuntimeException("Type Card dont find"));
+
 		typeCardRepository.deleteById(typeCardId);
 	}
 
